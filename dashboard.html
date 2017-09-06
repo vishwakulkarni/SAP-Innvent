@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>gRapchik</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Keywords" content="RAW,visualization,data,design,spreadsheet,interface,vector graphics,SVG,PNG,JSON">
+  <meta name="Description" content="RAW, missing link between spreadsheets and data visualization, by DensityDesign and Calibro, Giorgio Caviglia, Matteo Azzi, Michele Mauri, Giorgio Uboldi, Tommaso Elli">
+  <meta name="author" content="DensityDesign Research Lab and Studio Calibro">
+
+  <!-- Social Networks meta tags -->
+  <meta property="og:title" content="RAWGraphs">
+  <meta property="og:description" content="The missing link between spreadsheets and data visualization.">
+  <meta property="og:image" content="http://app.rawgraphs.io/imgs/cover-for-socials.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="http://app.rawgraphs.io/">
+  <meta property="og:type" content="article">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@rawgraphs">
+
+  <script>
+    document.write('<base href="' + document.location + '" />');
+  </script>
+
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic|Roboto:400,700italic,900italic,500italic,400italic,100italic,300italic,900,700,500,300,100|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,800,700|Chivo:400,900,400italic,900italic|Pacifico|Dancing+Script:400,700|Cousine:400,700|Arimo:300,400,300italic,400italic,700|Nunito:400,300,700|Oxygen:400,700,300|Lato:100,200,400,700,900&subset=latin,latin-ext"/>
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
+
+  <link rel="stylesheet" href="css/raw.css"/>
+  <link rel="icon" href="favicon.ico?v=2" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+
+
+  <link href="css/imageviewer.css"  rel="stylesheet" type="text/css" />
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script src="js/imageviewer.js"></script>
+ 
+<style>
+    #image-gallery {
+      width: 100%;
+      position: relative;
+      height: 650px;
+      background: #fff;
+    }
+    #image-gallery .image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 50px;
+    }
+    #image-gallery .prev,
+    #image-gallery .next {
+      position: absolute;
+      height: 32px;
+      margin-top: -66px;
+      top: 50%;
+    }
+    #image-gallery .prev {
+      left: 20px;
+    }
+    #image-gallery .next {
+      right: 20px;
+      cursor: pointer;
+    }
+    #image-gallery .footer-info {
+      position: absolute;
+      height: 50px;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      line-height: 50px;
+      font-size: 24px;
+      text-align: center;
+      color: white;
+      border-top: 1px solid #FFF;
+    }
+</style>
+
+</head>
+
+<body data-spy="scroll" data-target="#raw-nav">
+
+<br />
+
+<div id="image-gallery">
+    <div class="image-container"></div>
+    <img src="imgs/left.svg" class="prev"/>
+    <img src="imgs/right.svg"  class="next"/>
+    <div class="footer-info">
+        <span class="current"></span>/<span class="total"></span>
+    </div>
+</div>   
+<script type="text/javascript">
+$(function () {
+    var images = [{
+        small : 'imgs/1.svg',
+        big : 'imgs/1.svg'
+    },{
+        small : 'imgs/2.svg',
+        big : 'imgs/2.svg'
+    },{
+        small : 'imgs/3.svg',
+        big : 'imgs/3.svg'
+    },{
+        small : 'imgs/4.svg',
+        big : 'imgs/4.svgg'
+    }];
+ 
+    var curImageIdx = 1,
+        total = images.length;
+    var wrapper = $('#image-gallery'),
+        curSpan = wrapper.find('.current');
+    var viewer = ImageViewer(wrapper.find('.image-container'));
+ 
+    //display total count
+    wrapper.find('.total').html(total);
+ 
+    function showImage(){
+        var imgObj = images[curImageIdx - 1];
+        viewer.load(imgObj.small, imgObj.big);
+        curSpan.html(curImageIdx);
+    }
+ 
+    wrapper.find('.next').click(function(){
+         curImageIdx++;
+        if(curImageIdx > total) curImageIdx = 1;
+        showImage();
+    });
+ 
+    wrapper.find('.prev').click(function(){
+         curImageIdx--;
+        if(curImageIdx < 0) curImageIdx = total;
+        showImage();
+    });
+ 
+    //initially show image
+    showImage();
+});
+</script>
+      <!--<nav class="collapse navbar-collapse" role="navigation" id="raw-navbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://rawgraphs.io/">About</a></li>
+          <li><a href="https://github.com/densitydesign/raw/wiki/FAQs">FAQs</a></li>
+          <li><a href="http://rawgraphs.io/learning/" target="_blank">Learning</a></li>
+          <li><a href="https://github.com/densitydesign/raw/wiki/Developer-Guide">Developer Guide</a></li>
+          <li><a href="https://github.com/densitydesign/raw" style="font-size:23px"><i class="fa fa-github"></i></a></li>
+        </ul>
+      </nav> -->
+
+      <!--<span class="pull-left">The missing link between spreadsheets and vector graphics</span class="pull-left">-->
+
+   
+
+         <div id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <p><strong>gRapchik</strong> is an data analyser project by <a href="#">Protos</a></p>
+          <p><a href="https://github.com/vishwakulkarni" target="_blank">Vishwa kulkarni,</a> <a href="https://github.com/vishwakulkarni" target="_blank">Roopali Sharma</a>, <a href="https://github.com/vishwakulkarni" target="_blank">Anjali Gupta</a>, <a href="https://github.com/vishwakulkarni" target="_blank">Rohit Sharma</a></p>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+          <p><a href="mailto:vishwanath.kulkarni@sap.com"><i class="fa fa-envelope breath-right"></i>vishwanath.kulkarni@sap.com</a></p>
+          <p><a href="http://github.com/densitydesign/raw"><i class="fa fa-github breath-right"></i>GitHub</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
